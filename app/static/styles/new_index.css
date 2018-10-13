@@ -1,0 +1,47 @@
+body {
+	margin: 0px;
+	padding: 0px;
+	background-color: #ffffff;
+	font-family: 'Karla', sans-serif;
+}
+
+.header {
+	color: #343434;
+	text-align: left;
+	font-size: 48px;
+	font-weight: 700;
+	padding-bottom: 15px;
+}
+
+.col-form-label {
+	font-weight: 700;
+	font-size: 24px;
+	padding: 0px;
+}
+
+.container-fluid {
+	background-color: #FFF;
+	margin-top: 250px;
+	padding: 25px;
+	border-radius: 5px;
+	width: 65%;
+	margin-left: auto;
+	margin-right: auto;
+	border: 1px solid #aaa;
+}
+
+.instructions {
+	display: inline-block;
+}
+
+.upload-div {
+	border: 1px solid #ccc;
+	border-radius: 10px;
+	padding: 15px;
+}
+
+.upload-button {
+	float: right;
+	position: relative;
+	top: -5px;
+}
