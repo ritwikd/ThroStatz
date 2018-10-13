@@ -4,7 +4,7 @@ hertz = 40.0
 
 data = []
 
-with open('data/ritwik-3.csv', 'r') as csv_file:
+with open('data/ritwik-4.csv', 'r') as csv_file:
     reader = csv.DictReader(csv_file)
     data = list(reader)
 
@@ -18,8 +18,6 @@ def windupDetector(data):
     i = 0
     windups = []
     running_avg = {
-        'accelXData' : [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-        'accelXAvg' : 0.0,
         'accelZData' : [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
         'accelZAvg' : 0.0,
     }
@@ -47,11 +45,16 @@ def windupDetector(data):
 
             endIndex = windup['start'][0] + len(windup['data'])
 
-            print(windup)
+            windup['end'] = [endIndex, data[endIndex]['loggingTime(txt)']]
+
+
+            windups.append(windup)
 
             running_avg['accelZData'] = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
             running_avg['accelZAvg'] = 0.0
 
         i += 1
+
+    return windups
 
 windupDetector(data)
