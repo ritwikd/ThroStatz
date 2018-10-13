@@ -63,7 +63,7 @@ def windupToRelease(windup, data):
         'time' : 0,
         'velocity' : 0,
         'data' : [],
-        'angle (degrees)' : 0
+        'angle' : 0
     }
     i = release['start']
     accelX = round(float(data[i]['accelerometerAccelerationX(G)']), 3)
@@ -81,7 +81,7 @@ def windupToRelease(windup, data):
     release['data'] = list(filter(lambda a: a > 0, release['data']))
     release['time'] = len(release['data'])/hertz
     release['end'] = release['start'] + len(release['data'])
-    release['angle (degrees)'] = math.atan(max(accelZArray), max(accelXArray))
+    release['angle'] = math.degrees(math.atan(max(accelZArray)/max(accelXArray)))
 
 
 
@@ -103,6 +103,7 @@ def findThrows(data):
         throw = {
             'time' : windup['time'] + release['time'],
             'velocity' : release['velocity'],
+            'angle' : release['angle'],
             'release' : release,
             'windup' : windup
         }
@@ -114,5 +115,6 @@ i = 1
 for throw in t:
     print('Throw #' + str(i) +': ')
     print('Velocity (m/s): ' + str(throw['velocity']))
+    print('Angle (deg): ' + str(throw['angle']))
     print('Total Time (s): ' + str(throw['time']))
     i += 1
