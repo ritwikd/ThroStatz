@@ -72,7 +72,12 @@ def windupToRelease(windup, data):
         'time' : 0,
         'velocity' : 0,
         'data' : [],
-        'angle' : 0
+        'angle' : 0,
+        'xmax' : 0,
+        'zmax': 0,
+        'Time of Flight' : 0,
+        'Distance Travelled by Ball': 0,
+        'Maximum Height of Ball': 0
     }
     i = release['start']
     accelX = round(float(data[i]['accelerometerAccelerationX(G)']), 3)
@@ -92,15 +97,37 @@ def windupToRelease(windup, data):
     release['end'] = release['start'] + len(release['data'])
     release['angle'] = math.degrees(math.atan(max(accelZArray)/max(accelXArray)))
 
+    tempZArray = accelZArray[:accelZArray.index(max(accelZArray)) + 1]
+    tempZArray = list(filter(lambda a: a > 0, tempZArray))
+
     u = 0
-    distance = 0
+    distancex = 0
     for point in release['data']:
         point_distance = (1 / hertz) * (u + (0.5) * point * (1 / hertz))
         u += point
-        distance += point_distance
-    release['velocity'] = distance / release['time']
+        distancex += point_distance
 
+    distancez = 0
+    i = 0
+    for point in tempZArray:
+        point_distance = (1 / hertz) * (i + (0.5) * point * (1 / hertz))
+        i += point
+        distancez += point_distance
+
+    release['velocity'] = distancex * distancez * math.cos(math.radians(release['angle'])) / release['time']
+    timeOfFlight, distanceOfBall, maxHeightOfBall = ballAirData(distancex/release['time'], distancez/release['time'], release['angle'])
+    release['Time of Flight'] = timeOfFlight
+    release['Distance Travelled by Ball'] = distanceOfBall
+    release['Maximum Height of Ball'] = maxHeightOfBall
     return release
+
+def ballAirData(xVelocity, zVelocity, angle) :
+    horizontalComponent = xVelocity * (math.cos(math.radians(angle)))
+    verticalComponent = zVelocity * math.sin(math.radians(angle))
+    timeOfFlight = (2 * verticalComponent)/9.8
+    rangeOfBall = (2 * horizontalComponent*verticalComponent)/9.8
+    maxHeight = math.pow(verticalComponent, 2)/(2*9.8)
+    return timeOfFlight, rangeOfBall, maxHeight
 
 def findThrows(data):
     throws = []
@@ -112,7 +139,10 @@ def findThrows(data):
             'velocity' : release['velocity'],
             'angle' : release['angle'],
             'release' : release,
-            'windup' : windup
+            'windup' : windup,
+            'Time of Flight': release['Time of Flight'],
+            'Distance Travelled': release['Distance Travelled by Ball'],
+            'Maximum Height': release['Maximum Height of Ball']
         }
         if validThrow(throw): throws.append(throw)
     return throws
@@ -124,4 +154,7 @@ for throw in t:
     print('Velocity (m/s): ' + str(throw['velocity']))
     print('Angle (deg): ' + str(throw['angle']))
     print('Total Time (s): ' + str(throw['time']))
+    print('Time of Flight of Ball: ' + str(throw['Time of Flight']))
+    print('Distance Travelled by Ball: ' + str(throw['Distance Travelled']))
+    print('Maximum Height of Ball: ' + str(throw['Maximum Height']))
     i += 1
