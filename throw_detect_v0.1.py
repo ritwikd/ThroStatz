@@ -1,6 +1,6 @@
 import csv
 
-path = 'data/kj_short_lob.csv'
+path = 'data/kj-double-lob.csv'
 
 hertz = 40.0
 
