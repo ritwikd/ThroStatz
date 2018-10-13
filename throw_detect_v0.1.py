@@ -1,6 +1,6 @@
 import csv
 
-path = 'data/kj-double-lob.csv'
+path = 'data/ritwik-1.csv'
 
 hertz = 40.0
 
@@ -27,7 +27,7 @@ with open(path, 'r') as csv_file:
 	i = 0
 	while i <  len(dataPoints) - 1:
 		currentRotationRateX = round(float(dataPoints[i]['motionRotationRateX(rad/s)']), 3)
-		currentAccelX = round(float(dataPoints[i]['motionUserAccelerationX(G)']), 3)
+		currentAccelX = round(float(dataPoints[i]['accelerometerAccelerationX(G)']), 3)
 		currentGravityY = round(float(dataPoints[i]['motionGravityY(G)']), 3)
 		if currentRotationRateX > 0.5:
 			temp_throw = []
@@ -58,17 +58,15 @@ for throw in raw_throws:
 		u += point
 		distance += point_distance
 	speed = distance/throw_time
-	if throw_valid(avg_rotation_rate_X, avg_accel_rate_X, throw_time, distance, speed):
-		print("Grav:", sum(grav_data_Y))
-		print(throw[0][3])
-		verified_throws.append({
-			'Average Rotation Rate (rad/s)' : avg_rotation_rate_X,
-			'Average Accel Rate (g/s)' : avg_accel_rate_X,
-			'Throw Time (seconds)' : throw_time,
-			'Distance (m)' : distance,
-			'Speed (m/s)' : speed,
-			'Gravity' : avg_grav_rate_Y
-		})
+	print(throw[0][3])
+	verified_throws.append({
+		'Average Rotation Rate (rad/s)' : avg_rotation_rate_X,
+		'Average Accel Rate (g/s)' : avg_accel_rate_X,
+		'Throw Time (seconds)' : throw_time,
+		'Distance (m)' : distance,
+		'Speed (m/s)' : speed,
+		'Gravity' : avg_grav_rate_Y
+	})
 
 tn = 1
 for throw in verified_throws:
