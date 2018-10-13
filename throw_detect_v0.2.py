@@ -83,7 +83,7 @@ def windupToRelease(windup, data):
         distance += point_distance
     release['velocity'] = distance / release['time']
 
-    print(release)
+    return release
 
 def findThrows(data):
     throws = []
@@ -92,5 +92,17 @@ def findThrows(data):
         release = windupToRelease(windup, data)
         throw = {
             'time' : windup['time'] + release['time'],
-
+            'velocity' : release['velocity'],
+            'release' : release,
+            'windup' : windup
         }
+        throws.append(throw)
+    return throws
+
+t = findThrows(data)
+i = 1
+for throw in t:
+    print('Throw #' + str(i) +': ')
+    print('Velocity (m/s): ' + str(throw['velocity']))
+    print('Total Time (s): ' + str(throw['time']))
+    i += 1
