@@ -3,11 +3,11 @@ import math
 
 hertz = 40.0
 
-data = []
 
-with open('data/large-kyle.csv', 'r') as csv_file:
-    reader = csv.DictReader(csv_file)
-    data = list(reader)
+def fileParser(fileLocation):
+    with open(fileLocation, 'r') as csv_file:
+        reader = csv.DictReader(csv_file)
+        return list(reader)
 
 def validThrow(throw):
     if throw['velocity'] < 1:
@@ -146,15 +146,17 @@ def findThrows(data):
         }
         if validThrow(throw): throws.append(throw)
     return throws
+def serverData(fileAddress):
+    return findThrows(fileParser(fileAddress))
 
-t = findThrows(data)
-i = 1
-for throw in t:
-    print('Throw #' + str(i) +': ')
-    print('Velocity (m/s): ' + str(throw['velocity']))
-    print('Angle (deg): ' + str(throw['angle']))
-    print('Total Time (s): ' + str(throw['time']))
-    print('Time of Flight of Ball: ' + str(throw['Time of Flight']))
-    print('Distance Travelled by Ball: ' + str(throw['Distance Travelled']))
-    print('Maximum Height of Ball: ' + str(throw['Maximum Height']))
-    i += 1
+# t = findThrows(fileParser('data/ritwik-1.csv'))
+# i = 1
+# for throw in t:
+#     print('Throw #' + str(i) +': ')
+#     print('Velocity (m/s): ' + str(throw['velocity']))
+#     print('Angle (deg): ' + str(throw['angle']))
+#     print('Total Time (s): ' + str(throw['time']))
+#     print('Time of Flight of Ball: ' + str(throw['Time of Flight']))
+#     print('Distance Travelled by Ball: ' + str(throw['Distance Travelled']))
+#     print('Maximum Height of Ball: ' + str(throw['Maximum Height']))
+#     i += 1

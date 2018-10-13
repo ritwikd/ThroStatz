@@ -1,6 +1,7 @@
 import os
 from flask import Flask, flash, render_template, request, redirect, url_for, send_from_directory
 from werkzeug.utils import secure_filename
+from throw_detect import serverData
 
 UPLOAD_FOLDER = 'uploaded_data'
 ALLOWED_EXTENSIONS = set(['txt', 'csv'])
@@ -41,7 +42,7 @@ def handle_data():
 
 @app.route('/uploads/<filename>')
 def uploaded_file(filename):
-    return 
+    return serverData(filename)
 
 if __name__ == '__main__':
    app.run(debug = True)
