@@ -92,8 +92,6 @@ def windupToRelease(windup, data):
     release['end'] = release['start'] + len(release['data'])
     release['angle'] = math.degrees(math.atan(max(accelZArray)/max(accelXArray)))
 
-
-
     u = 0
     distance = 0
     for point in release['data']:
