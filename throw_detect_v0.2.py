@@ -5,7 +5,7 @@ hertz = 40.0
 
 data = []
 
-with open('data/large-dataset.csv', 'r') as csv_file:
+with open('data/large-ritwik.csv', 'r') as csv_file:
     reader = csv.DictReader(csv_file)
     data = list(reader)
 
