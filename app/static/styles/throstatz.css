@@ -1,0 +1,30 @@
+.header {
+	position: relative;
+    margin: auto;
+    text-align: center;
+    border: 3px;
+    transform: translate(0%, 120%);
+    font-family: Stencil Std, fantasy;
+    font-style: italic;
+}
+
+.up {
+	position: relative;
+    margin: auto;
+    text-align: center;
+    border: 3px solid white;
+    transform: translate(0%, 120%);
+}
+
+::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+    color: white !important;
+    opacity: 0.4 !important; /* Firefox */
+}
+
+:-ms-input-placeholder { /* Internet Explorer 10-11 */
+    color: white !important;
+}
+
+::-ms-input-placeholder { /* Microsoft Edge */
+    color: white !important;
+}

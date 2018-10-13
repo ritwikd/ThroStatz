@@ -1,0 +1,31 @@
+<html>
+	<head>
+		<title>ThroStatz</title>
+		<meta charset="utf-8">
+	    <meta name="viewport" content="width=device-width, initial-scale=1">
+	    <!-- import local css -->
+	    <link rel="stylesheet" href="{{ url_for('static',filename='styles/throstatz.css') }}" type="text/css">
+	    <!-- Latest compiled and minified CSS -->
+	    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+	    <!-- Optional theme -->
+	    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+	    <!-- Add font awesome icon library -->
+	    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+	    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	</head>
+	<body class="bg-dark">
+		<div class="container-fluid">
+			<h1 class="text-light col-lg-12 header">Thro Statz</h1>
+			<br>
+			<form id="theform" action="{{ url_for('handle_data') }}" method="post" enctype="multipart/form-data">
+				<div class="col-lg-12 header panel panel-default">
+	    			<div class="panel-body text-light">Upload CSV file</div>
+	  			</div>
+	  			<br>
+	  			<input type="file" name="the_file" class="filestyle col-md-6 text-light" data-icon="false">
+	  			<button type="submit" class="btn btn-secondary">Submit</button>
+  			</form>
+		</div>
+	</body>
+</html>
