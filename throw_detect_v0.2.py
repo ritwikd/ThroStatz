@@ -1,4 +1,5 @@
 import csv
+import math
 
 hertz = 40.0
 
@@ -61,19 +62,28 @@ def windupToRelease(windup, data):
         'end' : 0,
         'time' : 0,
         'velocity' : 0,
-        'data' : []
+        'data' : [],
+        'angle (degrees)' : 0
     }
     i = release['start']
     accelX = round(float(data[i]['accelerometerAccelerationX(G)']), 3)
+    accelXArray = []
+    accelZArray = []
     while accelX > 1 or (i - release['start']) < 10:
         accelX = round(float(data[i]['accelerometerAccelerationX(G)']), 3)
         release['data'].append(accelX)
+        accelXArray.append(accelX)
+        accelZ = round(float(data[i]['accelerometerAccelerationZ(G)']), 3)
+        accelZArray.append(accelZ)
         i += 1
     peak = max(release['data'])
     release['data'] = release['data'][:release['data'].index(peak) + 1]
     release['data'] = list(filter(lambda a: a > 0, release['data']))
     release['time'] = len(release['data'])/hertz
     release['end'] = release['start'] + len(release['data'])
+    release['angle (degrees)'] = math.atan(max(accelZArray), max(accelXArray))
+
+
 
     u = 0
     distance = 0
