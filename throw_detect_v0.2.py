@@ -1,9 +1,10 @@
-import numpy
 import csv
+
+hertz = 40.0
 
 data = []
 
-with open('data/ritwik-4.csv', 'r') as csv_file:
+with open('data/ritwik-3.csv', 'r') as csv_file:
     reader = csv.DictReader(csv_file)
     data = list(reader)
 
@@ -27,16 +28,29 @@ def windupDetector(data):
         running_avg['accelZData'] = shiftAdd(running_avg['accelZData'], accelZ)
         running_avg['accelZAvg'] = sum(running_avg['accelZData'])/12.0
 
-        if running_avg['accelZAvg'] > 4.0:
-            print('Windup Start found!')
+        if running_avg['accelZAvg'] > 2.5:
             windup = {
                 'data' : [],
-                'start' : ''
+                'time' : 0.0,
+                'start' : [i, data[i]['loggingTime(txt)']],
+                'end' : []
             }
             i -= 12
-            while accelZ > 0:
+            while accelZ > 0 or len(windup['data']) < 12:
                 accelZ = round(float(data[i]['accelerometerAccelerationZ(G)']), 3)
-                
+                windup['data'].append(accelZ)
+                i += 1
+
+            peak = max(windup['data'])
+            windup['data'] = windup['data'][:windup['data'].index(peak) + 1]
+            windup['time'] = len(windup['data'])/hertz
+
+            endIndex = windup['start'][0] + len(windup['data'])
+
+            print(windup)
+
+            running_avg['accelZData'] = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+            running_avg['accelZAvg'] = 0.0
 
         i += 1
 
