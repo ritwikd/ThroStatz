@@ -7,6 +7,20 @@ hertz = 40.0
 raw_throws = []
 verified_throws = []
 
+def throw_valid(avg_rotation_rate, avg_accel_rate, throw_time, distance, speed):
+	if avg_rotation_rate < 0:
+		return False
+	if avg_accel_rate < 0:
+		return False
+	if throw_time < 0.1:
+		return False
+	if speed < 1:
+		return False
+	if distance < 0.30:
+		return False
+	return True
+
+
 with open(path, 'r') as csv_file:
 	dictReader = csv.DictReader(csv_file)
 	dataPoints = list(dictReader)[:50]
@@ -39,13 +53,14 @@ for throw in raw_throws:
 		u += point
 		distance += point_distance
 	speed = distance/throw_time
-	verified_throws.append({
-		'Average Rotation Rate (rad/s)' : avg_rotation_rate,
-		'Average Accel Rate (g/s)' : avg_accel_rate,
-		'Throw Time (seconds)' : throw_time,
-		'Distance (m)' : distance,
-		'Speed (m/s)' : speed 
-	})
+	if throw_valid(avg_rotation_rate, avg_accel_rate, throw_time, distance, speed):
+		verified_throws.append({
+			'Average Rotation Rate (rad/s)' : avg_rotation_rate,
+			'Average Accel Rate (g/s)' : avg_accel_rate,
+			'Throw Time (seconds)' : throw_time,
+			'Distance (m)' : distance,
+			'Speed (m/s)' : speed 
+		})
 
 tn = 1
 for throw in verified_throws:
