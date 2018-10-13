@@ -5,9 +5,18 @@ hertz = 40.0
 
 data = []
 
-with open('data/large-dataset.csv', 'r') as csv_file:
+with open('data/large-kyle.csv', 'r') as csv_file:
     reader = csv.DictReader(csv_file)
     data = list(reader)
+
+def validThrow(throw):
+    if throw['velocity'] < 1:
+        return False
+    if throw['angle'] > 89:
+        return False
+    if throw['time'] < 0.1:
+        return False
+    return True
 
 def shiftAdd(arr, n):
     for i in range(len(arr) - 1):
@@ -135,7 +144,7 @@ def findThrows(data):
             'Distance Travelled': release['Distance Travelled by Ball'],
             'Maximum Height': release['Maximum Height of Ball']
         }
-        throws.append(throw)
+        if validThrow(throw): throws.append(throw)
     return throws
 
 t = findThrows(data)
