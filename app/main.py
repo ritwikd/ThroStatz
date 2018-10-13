@@ -42,7 +42,7 @@ def handle_data():
 
 @app.route('/uploads/<filename>')
 def uploaded_file(filename):
-    return serverData(filename)
+    return render_template("data.html", data=serverData(os.path.join(app.config['UPLOAD_FOLDER'], filename)))
 
 if __name__ == '__main__':
    app.run(debug = True)

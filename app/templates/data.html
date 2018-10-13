@@ -1,0 +1,17 @@
+<!doctype html>
+<html>
+	<head>
+		<title>DATA</title>
+	</head>
+	<body>
+		<table border="1">
+			{% for set in data %}
+	            {% for key,value in set.items() %}
+	               	{{ key }} : {{ value }}
+	               	<br>
+	            {% endfor %} 
+	            <br><br><br>
+	         {% endfor %}
+     	</table>
+	</body>
+</html>
