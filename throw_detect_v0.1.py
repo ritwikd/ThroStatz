@@ -52,11 +52,7 @@ for throw in verified_throws:
 	print('Throw #' + str(tn))
 	for (k,v) in throw.items():
 		print(k + ': ' + str(v))
-	tn += 1git init
-git add README.md
-git commit -m "first commit"
-git remote add origin https://github.com/ritwikd/ThroStatz.git
-git push -u origin master
+	tn += 1
 
 
 
