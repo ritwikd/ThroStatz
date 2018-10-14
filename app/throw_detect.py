@@ -146,8 +146,6 @@ def findThrows(data):
         }
         if validThrow(throw): throws.append(throw)
     return throws
-def serverData(fileAddress):
-    return findThrows(fileParser(fileAddress))
 
 # t = findThrows(fileParser('data/ritwik-1.csv'))
 # i = 1

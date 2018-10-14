@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>ThroStatz</title>
+	<link type="text/css" rel="stylesheet" href="//unpkg.com/bootstrap/dist/css/bootstrap.min.css"/>
+	<link type="text/css" rel="stylesheet" href="//unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.css"/>
+	<link rel="stylesheet" href="{{ url_for('static',filename='styles/new_index.css') }}" type="text/css">
+	<link href="https://fonts.googleapis.com/css?family=Karla:400,700" rel="stylesheet">
+</head>
+<body>
+	<div class="app">
+		<div class="container-fluid">
+			<div class="header">
+				ThroStatz
+			</div>
+			<div class="upload-div">
+			  	<b-form-group id="fieldsetHorizontal"
+                horizontal
+                :label-cols="4"
+                breakpoint="md"
+                description=""
+                label="Choose File"
+                label-for="inputHorizontal">
+				    <b-form-file id="inputHorizontal"  v-model="file" :state="Boolean(file)"></b-form-input>
+				  </b-form-group>
+				<div class="instructions">
+					Upload your CSV data file here.
+				</div>
+				<b-button @click="uploadFile" class="upload-button" size="md" variant="primary">
+					Upload
+				</b-button>
+			</div>
+		</div>
+	</div>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.js"></script>
+<script src="//unpkg.com/babel-polyfill@latest/dist/polyfill.min.js"></script>
+<script src="//unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue-resource@1.5.1"></script>
+<script type="text/javascript">
+	var app = new Vue({
+	  el: '.app',
+	  data () {
+	    return {
+	      file: null,
+	      uploadFile() {
+	      	Vue.http.options.emulateJSON = true;
+	      	fd = new FormData();
+	      	fd.append("user_file", app.file);
+	      	app.$http.post('/upload', fd).then(response => {
+                window.location = '/view/' + response.body['data_id'];
+              }, response => {
+                // error callback
+              });
+            }
+	      }
+	  }
+	});
+</script>
+</html>
