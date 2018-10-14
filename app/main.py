@@ -39,7 +39,7 @@ def upload():
 @app.route('/view/<id>')
 def uploaded_file(id):
     print(uploaded_data[id])
-    return render_template("data.html", data=uploaded_data[id])
+    return render_template("data.html", data=uploaded_data[id], uuid=str(id))
 
 if __name__ == '__main__':
    app.run(debug = True)
