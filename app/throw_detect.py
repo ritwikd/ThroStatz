@@ -95,7 +95,7 @@ def windupToRelease(windup, data):
     release['data'] = list(filter(lambda a: a > 0, release['data']))
     release['time'] = len(release['data'])/hertz
     release['end'] = release['start'] + len(release['data'])
-    release['angle'] = round(math.degrees(math.atan(max(accelZArray)/max(accelXArray))), 2)
+    release['angle'] = round(math.degrees(math.atan(max(accelZArray)/max(accelXArray))), 4)
 
     tempZArray = accelZArray[:accelZArray.index(max(accelZArray)) + 1]
     tempZArray = list(filter(lambda a: a > 0, tempZArray))
@@ -114,11 +114,11 @@ def windupToRelease(windup, data):
         i += point
         distancez += point_distance
 
-    release['velocity'] = round(distancex/ release['time'], 2)
+    release['velocity'] = round(distancex/ release['time'] * 2.23694, 2)
     timeOfFlight, distanceOfBall, maxHeightOfBall = ballAirData(distancex/release['time'], distancez/release['time'], release['angle'])
     release['Time of Flight'] = round(timeOfFlight, 2)
-    release['Distance Travelled by Ball'] = round(distanceOfBall, 2)
-    release['Maximum Height of Ball'] = round(maxHeightOfBall, 2)
+    release['Distance Travelled by Ball'] = round(distanceOfBall * 1.09361, 2)
+    release['Maximum Height of Ball'] = round(maxHeightOfBall * 1.09361, 2)
     return release
 
 def ballAirData(xVelocity, zVelocity, angle) :
