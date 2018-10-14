@@ -126,7 +126,7 @@ def ballAirData(xVelocity, zVelocity, angle) :
     verticalComponent = zVelocity * math.sin(math.radians(angle))
     timeOfFlight = (2 * verticalComponent)/9.8
     rangeOfBall = (2 * horizontalComponent*verticalComponent)/9.8
-    maxHeight = math.pow(verticalComponent, 2)/(2*9.8)
+    maxHeight = math.pow(verticalComponent, 2)/(2*9.8) + 1.8
     return timeOfFlight, rangeOfBall, maxHeight
 
 def findThrows(data):

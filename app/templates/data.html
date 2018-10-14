@@ -70,11 +70,7 @@
 	<script src="(( url_for('static', filename='js/curved_arrow.js') ))" type="text/javascript"></script>
 
 	<script>
-		var app = new Vue({
-			el: "#app"
-		});
-
-		function drawArrow(img, data)
+		function drawArrow(img, data, f)
 		{
 			var width = img.clientWidth;
 			var height = img.clientHeight;
@@ -84,36 +80,48 @@
 			var goaline_x = rect.left + (width/9.0);
 			var opp_goaline_x = rect.left + (width/1.15);
 
-			var distance = 76//parseFloat(data['Distance Travelled']);
+			var distance = parseFloat(data['Distance Travelled']);
+			var height = parseFloat(data['Maximum Height']);
 			var ratio = (opp_goaline_x-goaline_x)/100;//0.0785;
 			var aspect = distance*ratio;
 
 			var end_x = goaline_x + aspect;
 
 			var apex_x = (goaline_x+end_x)/2.0
-			var apex_y = (point_y-150)
+			var apex_y = (point_y-75-(50*height) )
 
-			$(function(){
-	            $(document.body).curvedArrow({
-	                p0x: goaline_x,//265
-	                p0y: point_y,//375
-	                p1x: apex_x,
-	                p1y: apex_y,//200
-	                p2x: end_x,
-	                p2y: point_y
-	            });
-        	});
+            $(document.body).curvedArrow({
+                p0x: goaline_x,
+                p0y: point_y,
+                p1x: apex_x,
+                p1y: apex_y,
+                p2x: end_x,
+                p2y: point_y
+            });
 		}
 
-		var images = document.getElementsByTagName('img');
-		for(var i = 0; i < images.length; i++) 
-		{
-			$(images[i]).load(function()
+		var app = new Vue({
+			el: "#app"
+		});
+
+		
+
+		setTimeout(function() {
+			var images = document.getElementsByTagName('img');
+
+			for(var i = 0; i < images.length; i++) 
 			{
+				var image = images[i];
+				
 				var new_data = (( data | safe ))
-				drawArrow(document.getElementById('field'), new_data[i-1]);
-			});
-		}
+				drawArrow(image, new_data[i], i);
+			}
+
+		}, 100);
+
+
+
+		
 
 	</script>
 </html>

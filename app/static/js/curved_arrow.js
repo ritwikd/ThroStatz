@@ -7,9 +7,9 @@
             p1y: 10,
             p2x: 100,
             p2y: 100,
-            size: 30,
-            lineWidth: 5.5,
-            strokeStyle: 'rgb(245,238,49)'
+            size: 12,
+            lineWidth: 4,
+            strokeStyle: 'rgb(255,0,0)'//'rgb(245,238,49)'
         }, options);
         
         var canvas = document.createElement('canvas');
