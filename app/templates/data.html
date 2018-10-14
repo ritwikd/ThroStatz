@@ -20,7 +20,9 @@
 					<b-col sm="auto"><h2>Trial <script type="">document.write(index);</script></h2></b-col>
 				</b-row>
 				<b-row>
-					<b-col class="football"><b-img fluid src="{{url_for('static', filename='football_field.png')}}"></b-img></b-col>
+					<canvas>
+						<b-col class="football"><b-img fluid src="{{url_for('static', filename='football_field.png')}}"></b-img></b-col>
+					</canvas>
 					<b-col xl="auto">
 						<table border="1">
 				            {% for key,value in set.items() %}
@@ -50,7 +52,7 @@
 										</tr>
 									{% endif %}
 				               	{% endif %}
-				            {% endfor %} 
+				            {% endfor %}
 			        	</table>
 		        	</b-col>
 	        	</b-row>
