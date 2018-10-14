@@ -1,25 +1,16 @@
-.header {
-	position: relative;
-    margin: auto;
-    text-align: center;
-    border: 3px;
-    transform: translate(0%, 120%);
-    font-family: -apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif
-    font-style: italic;
-}
-
 .container-fluid {
-    width: 60% !important;
+    background-color: #FFF;
+    margin-top: 50px;
+    padding: 25px;
+    border-radius: 5px;
+    width: 80%;
     margin-left: auto;
     margin-right: auto;
+    border: 1px solid #aaa;
 }
 
-.up {
-	position: relative;
-    margin: auto;
-    text-align: center;
-    border: 3px solid white;
-    transform: translate(0%, 120%);
+.football {
+    border: 2px solid green;
 }
 
 ::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
