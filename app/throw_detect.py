@@ -32,7 +32,7 @@ def findWindups(data):
         'accelZAvg' : 0.0,
     }
     while i < len(data) - 10:
-        accelZ = round(float(data[i]['accelerometerAccelerationZ(G)']), 3)
+        accelZ = round(float(data[i]['ZAccel']), 3)
         running_avg['accelZData'] = shiftAdd(running_avg['accelZData'], accelZ)
         running_avg['accelZAvg'] = sum(running_avg['accelZData'])/12.0
 
@@ -45,7 +45,7 @@ def findWindups(data):
             }
             i -= 12
             while accelZ > 0 or len(windup['data']) < 12:
-                accelZ = round(float(data[i]['accelerometerAccelerationZ(G)']), 3)
+                accelZ = round(float(data[i]['ZAccel']), 3)
                 windup['data'].append(accelZ)
                 i += 1
 
@@ -80,14 +80,14 @@ def windupToRelease(windup, data):
         'Maximum Height of Ball': 0
     }
     i = release['start']
-    accelX = round(float(data[i]['accelerometerAccelerationX(G)']), 3)
+    accelX = round(float(data[i]['XAccel']), 3)
     accelXArray = []
     accelZArray = []
     while accelX > 1 or (i - release['start']) < 10:
-        accelX = round(float(data[i]['accelerometerAccelerationX(G)']), 3)
+        accelX = round(float(data[i]['XAccel']), 3)
         release['data'].append(accelX)
         accelXArray.append(accelX)
-        accelZ = round(float(data[i]['accelerometerAccelerationZ(G)']), 3)
+        accelZ = round(float(data[i]['ZAccel']), 3)
         accelZArray.append(accelZ)
         i += 1
     peak = max(release['data'])
