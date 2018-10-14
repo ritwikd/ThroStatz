@@ -25,10 +25,30 @@
 						<table border="1">
 				            {% for key,value in set.items() %}
 				            	{% if key.strip() != 'release' and key.strip() != 'windup' %}
-				               		<tr>
-			           					<th> {{ key }} </th>
-			           					<td> {{ value }} </td>
-			        				</tr>
+									{% if key.strip() == 'Angle' %}
+	               						<tr>
+           								<th> {{ key }} </th>
+           								<td> {{ value }}° </td>
+        								</tr>
+	               					{% endif %}
+									{% if key.strip() == 'Velocity of Throw' %}
+	               						<tr>
+										<th> {{ key }} </th>
+										<td> {{ value }} m/s</td>
+        								</tr>
+									{% endif %}
+									{% if key.strip() == 'Time of Flight' or key.strip() == 'Time of Windup' %}
+										<tr>
+											<th> {{ key }} </th>
+											<td> {{ value }} s</td>
+										</tr>
+									{% endif %}
+									{% if key.strip() == 'Distance Travelled' or key.strip() == 'Maximum Height' %}
+										<tr>
+											<th> {{ key }} </th>
+											<td> {{ value }} m</td>
+										</tr>
+									{% endif %}
 				               	{% endif %}
 				            {% endfor %} 
 			        	</table>
