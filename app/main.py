@@ -8,7 +8,14 @@ from throw_detect import *
 UPLOAD_FOLDER = 'uploaded_data'
 ALLOWED_EXTENSIONS = set(['txt', 'csv'])
 
-app = Flask(__name__)
+class VueFlask(Flask):
+    jinja_options = Flask.jinja_options.copy()
+    jinja_options.update(dict(
+        variable_start_string='((',
+        variable_end_string='))'
+    ))
+
+app = VueFlask(__name__)
 
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
