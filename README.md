@@ -14,18 +14,19 @@ The App Consists of 2 parts:
  The commands above allow you to clone the github repository and install all the required dependencies for the WebApp.
 ```
 git clone https://github.com/ritwikd/ThroStatz.git
+cd ThroStatz
 cd app
 pip install flask
 ```
  Then run the command below to start the server on localhost:5000
 #### Windows
 ```
-set FLASK_APP=hello
+set FLASK_APP=main.py
 flask run
 ```
 #### Linux/OSX
 ```
-$ export FLASK_APP=hello.py
+$ export FLASK_APP=main.py
 $ flask run
 ```
 If all went well you should get the following terminal screen.
