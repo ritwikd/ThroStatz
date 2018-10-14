@@ -2,16 +2,44 @@
 <html>
 	<head>
 		<title>DATA</title>
+		<!-- Add this to <head> -->
+		<link type="text/css" rel="stylesheet" href="//unpkg.com/bootstrap/dist/css/bootstrap.min.css"/>
+		<link type="text/css" rel="stylesheet" href="//unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.css"/>
 	</head>
 	<body>
-		<table border="1">
-			{% for set in data %}
+	<div id="app">
+		<b-navbar toggable variant="light" type="light">
+    		<b-navbar-brand tag="h1" class="mb-0">ThroStatz</b-navbar-brand>
+  		</b-navbar>
+
+		<br>
+
+		<script> var index = 1; </script>
+		{% for set in data %}
+			<table border="1">
+				<tr><td>Trial <script type="">document.write(index);</script></td></tr>
 	            {% for key,value in set.items() %}
-	               	{{ key }} : {{ value }}
-	               	<br>
+	            	{% if key.strip() != 'release' and key.strip() != 'windup' %}
+	               		<tr>
+           					<th> {{ key }} </th>
+           					<td> {{ value }} </td>
+        				</tr>
+	               	{% endif %}
 	            {% endfor %} 
-	            <br><br><br>
-	         {% endfor %}
-     	</table>
+        	</table>
+        	<br>
+        	<script>index++;</script>
+        {% endfor %}
+    </div>
 	</body>
+	<!-- Add this after vue.js -->
+	<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+	<script src="//unpkg.com/babel-polyfill@latest/dist/polyfill.min.js"></script>
+	<script src="//unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.js"></script>
+
+	<script>
+		var app = new Vue({
+			el: "#app"
+		});
+	</script>
 </html>
