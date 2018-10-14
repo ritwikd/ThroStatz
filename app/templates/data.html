@@ -34,7 +34,7 @@
 									{% if key.strip() == 'Velocity of Throw' %}
 	               						<tr>
 										<th> {{ key }} </th>
-										<td> {{ value }} m/s</td>
+										<td> {{ value }} mph</td>
         								</tr>
 									{% endif %}
 									{% if key.strip() == 'Time of Flight' or key.strip() == 'Time of Windup' %}
@@ -46,7 +46,7 @@
 									{% if key.strip() == 'Distance Travelled' or key.strip() == 'Maximum Height' %}
 										<tr>
 											<th> {{ key }} </th>
-											<td> {{ value }} m</td>
+											<td> {{ value }} ft</td>
 										</tr>
 									{% endif %}
 				               	{% endif %}
