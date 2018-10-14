@@ -114,7 +114,7 @@ def windupToRelease(windup, data):
         i += point
         distancez += point_distance
 
-    release['velocity'] = (math.sqrt(math.pow(distancex,2)+math.pow(distancez,2)) * math.cos(math.radians(release['angle']))) / release['time']
+    release['velocity'] = distancex/ release['time']
     timeOfFlight, distanceOfBall, maxHeightOfBall = ballAirData(distancex/release['time'], distancez/release['time'], release['angle'])
     release['Time of Flight'] = timeOfFlight
     release['Distance Travelled by Ball'] = distanceOfBall
