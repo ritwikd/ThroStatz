@@ -5,32 +5,39 @@
 		<!-- Add this to <head> -->
 		<link type="text/css" rel="stylesheet" href="//unpkg.com/bootstrap/dist/css/bootstrap.min.css"/>
 		<link type="text/css" rel="stylesheet" href="//unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.css"/>
+		<link rel="stylesheet" href="{{ url_for('static',filename='styles/new_index.css') }}" type="text/css">
 	</head>
 	<body>
 	<div id="app">
 		<b-navbar toggable variant="light" type="light">
     		<b-navbar-brand tag="h1" class="mb-0">ThroStatz</b-navbar-brand>
-    		<b-navbar-brand tag="h1" class="mb-0">{{ uuid|string() }} </b-navbar-brand>
+    		<b-navbar-brand tag="h1" class="mb-0">CSV ID: <u>{{ uuid|string() }}</u></b-navbar-brand>
   		</b-navbar>
-
-		<br>
-
 		<script> var index = 1; </script>
-		{% for set in data %}
-			<table border="1">
-				<tr><td>Trial <script type="">document.write(index);</script></td></tr>
-	            {% for key,value in set.items() %}
-	            	{% if key.strip() != 'release' and key.strip() != 'windup' %}
-	               		<tr>
-           					<th> {{ key }} </th>
-           					<td> {{ value }} </td>
-        				</tr>
-	               	{% endif %}
-	            {% endfor %} 
-        	</table>
-        	<br>
-        	<script>index++;</script>
-        {% endfor %}
+		<b-container>
+			{% for set in data %}
+				<b-row>
+					<b-col sm="auto"><h4>Trial <script type="">document.write(index);</script></h4></b-col>
+				</b-row>
+				<b-row>
+					<b-col>FOOTBALL FIELD HERE</b-col>
+					<b-col xl="auto">
+						<table border="1">
+				            {% for key,value in set.items() %}
+				            	{% if key.strip() != 'release' and key.strip() != 'windup' %}
+				               		<tr>
+			           					<th> {{ key }} </th>
+			           					<td> {{ value }} </td>
+			        				</tr>
+				               	{% endif %}
+				            {% endfor %} 
+			        	</table>
+		        	</b-col>
+	        	</b-row>
+	        	<br>
+	        	<script>index++;</script>
+	        {% endfor %}
+    	</b-container>
     </div>
 	</body>
 	<!-- Add this after vue.js -->
