@@ -10,11 +10,11 @@ def fileParser(fileLocation):
         return list(reader)
 
 def validThrow(throw):
-    if throw['velocity'] < 1:
+    if throw['Velocity of Throw'] < 1:
         return False
-    if throw['angle'] > 89:
+    if throw['Angle'] > 89:
         return False
-    if throw['time'] < 0.1:
+    if throw['Time of Windup'] < 0.1:
         return False
     return True
 
@@ -95,7 +95,7 @@ def windupToRelease(windup, data):
     release['data'] = list(filter(lambda a: a > 0, release['data']))
     release['time'] = len(release['data'])/hertz
     release['end'] = release['start'] + len(release['data'])
-    release['angle'] = math.degrees(math.atan(max(accelZArray)/max(accelXArray)))
+    release['angle'] = round(math.degrees(math.atan(max(accelZArray)/max(accelXArray))), 2)
 
     tempZArray = accelZArray[:accelZArray.index(max(accelZArray)) + 1]
     tempZArray = list(filter(lambda a: a > 0, tempZArray))
@@ -114,11 +114,11 @@ def windupToRelease(windup, data):
         i += point
         distancez += point_distance
 
-    release['velocity'] = distancex/ release['time']
+    release['velocity'] = round(distancex/ release['time'], 2)
     timeOfFlight, distanceOfBall, maxHeightOfBall = ballAirData(distancex/release['time'], distancez/release['time'], release['angle'])
-    release['Time of Flight'] = timeOfFlight
-    release['Distance Travelled by Ball'] = distanceOfBall
-    release['Maximum Height of Ball'] = maxHeightOfBall
+    release['Time of Flight'] = round(timeOfFlight, 2)
+    release['Distance Travelled by Ball'] = round(distanceOfBall, 2)
+    release['Maximum Height of Ball'] = round(maxHeightOfBall, 2)
     return release
 
 def ballAirData(xVelocity, zVelocity, angle) :
@@ -135,9 +135,9 @@ def findThrows(data):
     for windup in windups:
         release = windupToRelease(windup, data)
         throw = {
-            'time' : windup['time'] + release['time'],
-            'velocity' : release['velocity'],
-            'angle' : release['angle'],
+            'Time of Windup' : windup['time'] + release['time'],
+            'Velocity of Throw' : release['velocity'],
+            'Angle' : release['angle'],
             'release' : release,
             'windup' : windup,
             'Time of Flight': release['Time of Flight'],
